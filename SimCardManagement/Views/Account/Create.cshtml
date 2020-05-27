@@ -1,0 +1,154 @@
+﻿@model AccountModelView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألمستخدمين" , subTitle = "إضافة مستخدم"}' />
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="card mb-4">
+        <!-- Card header -->
+        <div class="card-header">
+            <h3 class="mb-0">إضافة مستخدم</h3>
+        </div>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-control-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="إسم ألمستخدم" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Email" class="form-control-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="ألبريد الألكتروني" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Password" class="form-control-label"></label>
+                            <input asp-for="Password" class="form-control" placeholder="ألرقم ألسري" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword" class="form-control-label"></label>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد ألرقم ألسري" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Role" class="form-control-label"></label>
+                            <select asp-for="Role" asp-items='new SelectList(ViewBag.roles,"Name","Name")' class="form-control">
+                                <option>--إختار--</option>
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Photo" class="form-control-label"></label>
+                            <div class="custom-file" dir="ltr">
+                                <input style="width:100%!important" type="file" class="custom-file-input" asp-for="Photo">
+                                <label class="custom-file-label" asp-for="Photo"></label>
+                            </div>
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="AccountType" class="form-control-label"></label>
+                            <select asp-for="AccountType" asp-items='Html.GetEnumSelectList<AccountType>()' class="form-control">
+                                <option>--إختار--</option>
+                            </select>
+                            <span asp-validation-for="AccountType" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Location" class="form-control-label"></label>
+                            <input asp-for="Location" class="form-control" placeholder="ألموقع" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="IdCardNumber" class="form-control-label"></label>
+                            <input asp-for="IdCardNumber" class="form-control" placeholder="رقم ألهوية" />
+                            <span asp-validation-for="IdCardNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="WorkPostion" class="form-control-label"></label>
+                            <input asp-for="WorkPostion" class="form-control" placeholder="مكان ألعمل" />
+                            <span asp-validation-for="WorkPostion" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="form-control-label"></label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="رقم ألهاتف" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" dir="ltr">
+                    <div class="form-group col-md-2">
+                        <input type="submit" value="إضافة" class="btn btn-block btn-primary" />
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </form>
+        <!-- Card body -->
+
+    </div>
+
+</div>
+
+
+@if (ViewBag.alertMsg != null)
+{
+    <script>
+        Swal.fire({
+          icon: 'success',
+          title: '@ViewBag.alertMsg',
+          footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
+        })
+
+    </script>
+}
+
+
+
+
+

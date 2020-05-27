@@ -1,0 +1,11 @@
+﻿@font-face {
+    font-family: 'tajawal';
+    src: url('../fonts/tajawal-bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'almarai';
+    src: url('../fonts/almarai-bold.ttf') format('truetype');
+}
+body {
+    font-family: almarai !important;
+}

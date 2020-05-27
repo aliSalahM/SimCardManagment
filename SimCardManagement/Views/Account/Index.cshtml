@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألمستخدمين" , subTitle = "عرض ألمستخدمين"}' />
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">عرض ألمستخدمين</h3>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>إسم ألمستخدم</th>
+                                <th>ألبريد الألكتروني</th>
+                                <th>إسم ألحساب</th>
+                                <th>ألصورة</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody> 
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td style="vertical-align:middle">@item.Name</td>
+                                <td style="vertical-align:middle">@item.Email</td>
+                                <td style="vertical-align:middle">@item.UserName</td>
+                                <td>
+                                    @if (item.Photo != null)
+                                    {
+                                        <img src="~/UserImages/@item.Photo" class="avatar rounded-circle mr-3">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/UserImages/unknownUser.jpg" class="avatar rounded-circle mr-3">
+                                    }
+
+                                </td>
+                                <td style="vertical-align:middle" class="table-actions">
+                                    <a asp-action="EditPassword" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تغير ألرقم ألسري">
+                                        <i class="fas fa-key"></i>
+                                    </a>
+                                    <a href="#" onclick="DeleteAction('@item.Id','@item.Name')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    function DeleteAction(id, title) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'هل أنت متأكد من حذف <br/>  (' + title + ')  ',
+            text: "لن تكون قادراً على الأعادة بعد ألحذف",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم , متأكد',
+            cancelButtonText: 'كلا , رجوع',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                var itemId = id;
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/Account/Delete/',
+                    data: { id: itemId }
+                });
+
+                swalWithBootstrapButtons.fire(
+                    'تم ألحذف!',
+                    'تم ألحذف بنجاح',
+                    'success'
+
+                )
+
+                $(document).ajaxStop(function () {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'تم إلغاء ألعملية',
+                    'لم يتم ألحذف :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>

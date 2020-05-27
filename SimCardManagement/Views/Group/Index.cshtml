@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GroupModelView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألمجموعات" , subTitle = "عرض ألمجموعات"}' />
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">عرض ألمجموعات</h3>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>إسم ألمجموعة</th>
+                                <th>ينتمي ألى</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="vertical-align:middle">@item.Name</td>
+                                    <td style="vertical-align:middle">@item.BelongTo.Name</td>
+                                    
+                                    <td style="vertical-align:middle" class="table-actions">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="#" onclick="DeleteAction('@item.Id','@item.Name')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a asp-action="AddSimCardToGroup" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="إضافة شريحة">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                        <a asp-action="GetSimsForGroup" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="عرض ألشرائح">
+                                            <i class="fas fa-sim-card"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-controller="ReportCDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-controller="CDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </a>
+                                        <a asp-action="Index" asp-controller="GroupSubscrip" asp-route-GroupId="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="الأشتراكات">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

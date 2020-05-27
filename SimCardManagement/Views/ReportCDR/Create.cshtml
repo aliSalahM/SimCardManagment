@@ -1,0 +1,229 @@
+﻿@model ReportCDRModelView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "CDR" , subTitle = "إضافة"}' />
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="card mb-4">
+        <!-- Card header -->
+        <div class="card-header">
+            <h3 class="mb-0">إضافة</h3>
+        </div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Date" class="form-control-label"></label>
+                            <input asp-for="Date" type="date" class="form-control" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Amount" class="form-control-label"></label>
+                            <input asp-for="Amount" class="form-control" placeholder="ألسعة" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CONTRNO" class="form-control-label"></label>
+                            <input asp-for="CONTRNO" class="form-control" placeholder="CONTRNO" />
+                            <span asp-validation-for="CONTRNO" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="MSISDN_TOTAL" class="form-control-label"></label>
+                            <input asp-for="MSISDN_TOTAL" class="form-control" placeholder="MSISDN_TOTAL" />
+                            <span asp-validation-for="MSISDN_TOTAL" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr style="background-color:#5e72e4;height:1px" />
+                <div class="row ">
+                    <div class=" col-md-12">
+                        <div class="text-center">
+                            <label class="form-control-label">Count of MSISDN</label>
+                        </div>
+                        <br />
+                        <div class="col-md-4 text-center">
+                            <div>
+                                <label class="form-control-label">Active</label>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="ActiveUsed" class="form-control" placeholder="Used" />
+                                        <span asp-validation-for="ActiveUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="ActiveNotUsed" class="form-control" placeholder="Not Used" />
+                                        <span asp-validation-for="ActiveNotUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <div>
+                                <label class="form-control-label">Suspend</label>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="SuspendUsed" class="form-control" placeholder="Used" />
+                                        <span asp-validation-for="SuspendUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="SuspendNotUsed" class="form-control" placeholder="Not Used" />
+                                        <span asp-validation-for="SuspendNotUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <div>
+                                <label class="form-control-label">Deactive</label>
+                            </div>
+                            <div class="row ">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="DeactiveUsed" class="form-control" placeholder="Used" />
+                                        <span asp-validation-for="DeactiveUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input asp-for="DeactiveNotUsed" class="form-control" placeholder="Not Used" />
+                                        <span asp-validation-for="DeactiveNotUsed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <hr style="background-color:#5e72e4;height:1px" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <label class="form-control-label">Data Usage</label>
+                        </div>
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Data_Usage_KB" class="form-control" placeholder="KB" />
+                                        <span asp-validation-for="Data_Usage_KB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Data_Usage_MB" class="form-control" placeholder="MB" />
+                                        <span asp-validation-for="Data_Usage_MB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Data_Usage_GB" class="form-control" placeholder="GB" />
+                                        <span asp-validation-for="Data_Usage_GB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <label class="form-control-label">Remaining Quota</label>
+                        </div>
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Remaining_Quota_KB" class="form-control" placeholder="KB" />
+                                        <span asp-validation-for="Remaining_Quota_KB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Remaining_Quota_MB" class="form-control" placeholder="MB" />
+                                        <span asp-validation-for="Remaining_Quota_MB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-center p-4">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input asp-for="Remaining_Quota_GB" class="form-control" placeholder="GB" />
+                                        <span asp-validation-for="Remaining_Quota_GB" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="row" dir="ltr">
+                    <div class="form-group col-md-2">
+                        <input type="submit" value="إضافة" class="btn btn-block btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Card body -->
+    </div>
+</div>
+
+

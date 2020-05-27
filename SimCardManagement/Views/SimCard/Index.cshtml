@@ -1,0 +1,139 @@
+﻿@model IEnumerable<SimCardModelView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألشرائح" , subTitle = "عرض ألشرائح"}' />
+
+
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">عرض ألشرائح</h3>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>ألرمز</th>
+                                <th>رقم ألشريحة</th>
+                                <th>رقم ألعقد</th>
+                                <th>نوع ألشريحة</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Code</td>
+                                    <td>@item.SimCardNumber</td>
+                                    <td>@item.ACCT_CODE</td>
+                                    <td>@item.SimType</td>
+                                    <td style="vertical-align:middle" class="table-actions">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تفاصيل">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="#" onclick="DeleteAction('@item.Id','@item.Code')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function DeleteAction(id, title) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'هل أنت متأكد من حذف <br/>  (' + title + ')  ',
+            text: "لن تكون قادراً على الأعادة بعد ألحذف",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم , متأكد',
+            cancelButtonText: 'كلا , رجوع',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                var itemId = id;
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/SimCard/Delete/',
+                    data: { id: itemId }
+                });
+
+                swalWithBootstrapButtons.fire(
+                    'تم ألحذف!',
+                    'تم ألحذف بنجاح',
+                    'success'
+
+                )
+
+                $(document).ajaxStop(function () {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'تم إلغاء ألعملية',
+                    'لم يتم ألحذف :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

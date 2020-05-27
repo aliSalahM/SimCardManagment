@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "AddSimsCard";
+}
+
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "CDR" , subTitle = "إضافة"}' />
+
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="card mb-4">
+        <!-- Card header -->
+        <div class="card-header">
+            <h3 class="mb-0">إضافة</h3>
+        </div>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="file" id="fileupload" name="files" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="button" name="Upload" value="إضافة" id="btnupload" class="btn btn-primary w-100 " />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <!-- Card body -->
+
+    </div>
+    <div id="divLoader" class="text-center" style="display:none">
+        <img style="width:80px" src="~/assets/img/load.gif" />
+    </div>
+</div>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#btnupload').on('click', function () {
+            var fileExtension = ['xls', 'xlsx'];
+            var filename = $('#fileupload').val();
+            if (filename.length == 0) {
+                alert("ألرجاء إختيار ملف");
+                return false;
+            }
+            else {
+                var extension = filename.replace(/^.*\./, '');
+                if ($.inArray(extension, fileExtension) == -1) {
+                    alert("ألرجاء إختيار ملف من نوع أكسل.");
+                    return false;
+                }
+            }
+            document.getElementById('divLoader').style.display = 'block';
+            var fdata = new FormData();
+            var fileUpload = $("#fileupload").get(0);
+            var files = fileUpload.files;
+            fdata.append(files[0].name, files[0]);
+            $.ajax({
+                type: "POST",
+                url: "/CDR/Import",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                data: fdata,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.length == 0)
+                        alert('حدث خطأ أثناء ألرفع');
+                    else {
+                        document.getElementById('divLoader').style.display = 'none';
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'تمت ألعملية بنجاح',
+                            footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
+                        });
+                    }
+                },
+                error: function (e) {
+                    document.getElementById('divLoader').style.display = 'none';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'تمت ألعملية بنجاح',
+                        footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
+                    });
+                }
+            });
+        })
+
+    });
+</script>
+

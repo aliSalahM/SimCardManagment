@@ -1,0 +1,115 @@
+﻿@model List<GroupSimCardsModelView>
+
+@{
+    ViewData["Title"] = "AddSimCardToGroup";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألمجموعات" , subTitle = "إضافة شريحة"}' />
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">إضافة شريحة</h3>
+                </div>
+                <form asp-action="AddSimCardToGroup">
+                    <div class="table-responsive py-4">
+                        <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                            <thead>
+                                <tr>
+                                    <th>ألرمز</th>
+                                    <th>رقم ألشريحة</th>
+                                    <th>رقم ألعقد</th>
+                                    <th>نوع ألشريحة</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+    
+                            <tbody>
+
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <input type="hidden" asp-for="@Model[i].GroupId" />
+                                        <input type="hidden" asp-for="@Model[i].SimCardId" />
+                                        <td>@Model[i].SimCard.Code</td>
+                                        <td>@Model[i].SimCard.SimCardNumber</td>
+                                        <td>@Model[i].SimCard.ACCT_CODE</td>
+                                        <td>@Model[i].SimCard.SimType</td>
+                                        <td><input asp-for="@Model[i].Selected" /></td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                        </div>
+                    <div class="row pl-5 pb-4" dir="ltr">
+                        <input type="submit" value="إضافة" class="btn btn-primary" />
+                    </div>
+                         
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<form asp-action="AddSimCardToGroup">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <input type="hidden" asp-for="@Model[i].GroupId" />
+        <input type="hidden" asp-for="@Model[i].SimCardId" />
+        <input asp-for="@Model[i].Selected" />
+        @Model[i].SimCard.SimCardNumber
+        <br />
+    }
+
+
+    <div class="row" dir="ltr">
+        <div class="form-group col-md-2">
+            <input type="submit" value="إضافة" class="btn btn-block btn-primary" />
+        </div>
+    </div>
+</form>*@
+
+
+@if (ViewBag.alertMsg != null)
+{
+    <script>
+        Swal.fire({
+          icon: 'success',
+          title: '@ViewBag.alertMsg',
+          footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
+        })
+
+    </script>
+}
+

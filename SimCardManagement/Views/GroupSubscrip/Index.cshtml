@@ -1,0 +1,76 @@
+﻿@model IEnumerable<GroupSubscripModelView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "الأشتراكات" , subTitle = "تفاصيل"}' />
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <div class=" row">
+                        <h3 class="mb-0 col-6">تفاصيل</h3>
+                        <div class="col-6 text-left">
+                            <a asp-action="Create" asp-route-GroupId="@ViewBag.groupId" class="mb-0 text-white btn btn-warning">إضافة</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FromDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ToDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Limit)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.FromDate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @item.ToDate.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Limit)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        <a asp-action="GetSubscripDetails" asp-controller="GroupSubscrip" asp-route-SubscribID="@item.Id" asp-route-GroupId="@ViewBag.groupId" class="table-action" data-toggle="tooltip" data-original-title="ألتفاصيل">
+                                            <i class="fas fa-info"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,199 @@
+﻿@model SimCardModelView
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "ألشرائح" , subTitle = "إضافة شريحة"}' />
+
+
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="card mb-4">
+        <!-- Card header -->
+        <div class="card-header">
+            <h3 class="mb-0">إضافة شريحة</h3>
+        </div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-body">
+                <!-- Form groups used in grid -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Code" class="form-control-label"></label>
+                            <input asp-for="Code" class="form-control" placeholder="ألرمز" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="SimCardNumber" class="form-control-label"></label>
+                            <input asp-for="SimCardNumber" class="form-control" placeholder="رقم ألشريحة" />
+                            <span asp-validation-for="SimCardNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ACCT_CODE" class="form-control-label"></label>
+                            <input asp-for="ACCT_CODE" class="form-control" placeholder="رقم ألعقد" />
+                            <span asp-validation-for="ACCT_CODE" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="IMEI" class="form-control-label"></label>
+                            <input asp-for="IMEI" class="form-control" placeholder="IMEI" />
+                            <span asp-validation-for="IMEI" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SimIP" class="form-control-label"></label>
+                            <input asp-for="SimIP" class="form-control" placeholder="SimCard IP" />
+                            <span asp-validation-for="SimIP" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="SimType" class="form-control-label"></label>
+                            <input asp-for="SimType" class="form-control" placeholder="نوع ألشريحة" />
+                            <span asp-validation-for="SimType" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="Server" class="form-control-label"></label>
+                            <input asp-for="Server" class="form-control" placeholder="ألخادم" />
+                            <span asp-validation-for="Server" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="ServerIp" class="form-control-label"></label>
+                            <input asp-for="ServerIp" class="form-control" placeholder="Server IP" />
+                            <span asp-validation-for="ServerIp" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ServerLocation" class="form-control-label"></label>
+                            <input asp-for="ServerLocation" class="form-control" placeholder="موقع ألخادم" />
+                            <span asp-validation-for="ServerLocation" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ServerLink" class="form-control-label"></label>
+                            <input asp-for="ServerLink" class="form-control" placeholder="Server Link" />
+                            <span asp-validation-for="ServerLink" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ServerOS" class="form-control-label"></label>
+                            <input asp-for="ServerOS" class="form-control" placeholder="نظام تشغيل ألخادم" />
+                            <span asp-validation-for="ServerOS" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DevaiceName" class="form-control-label"></label>
+                            <input asp-for="DevaiceName" class="form-control" placeholder="إسم ألجهاز" />
+                            <span asp-validation-for="DevaiceName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DeviceType" class="form-control-label"></label>
+                            <input asp-for="DeviceType" class="form-control" placeholder="نوع ألجهاز" />
+                            <span asp-validation-for="DeviceType" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="DeviceModal" class="form-control-label"></label>
+                            <input asp-for="DeviceModal" class="form-control" placeholder="موديل ألجهاز" />
+                            <span asp-validation-for="DeviceModal" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label asp-for="DeviceLocation" class="form-control-label"></label>
+                            <input asp-for="DeviceLocation" class="form-control" placeholder="موقع ألجهاز" />
+                            <span asp-validation-for="DeviceLocation" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DeviceIMEI" class="form-control-label"></label>
+                            <input asp-for="DeviceIMEI" class="form-control" placeholder="أيمي ألجهاز" />
+                            <span asp-validation-for="DeviceIMEI" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" dir="ltr">
+                    <div class="form-group col-md-2">
+                        <input type="submit" value="إضافة" class="btn btn-block btn-primary" />
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </form>
+        <!-- Card body -->
+
+    </div>
+
+</div>
+
+
+@if (ViewBag.alertMsg != null)
+{
+    <script>
+        Swal.fire({
+          icon: 'success',
+          title: '@ViewBag.alertMsg',
+          footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
+        })
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
