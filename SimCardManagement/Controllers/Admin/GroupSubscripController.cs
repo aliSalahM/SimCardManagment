@@ -64,7 +64,7 @@ namespace SimCardManagement.Controllers.Admin
             if (SubscribId != Guid.Empty && GroupId != Guid.Empty)
             {
                 var subscrib = db.GroupSubscrip.Find(SubscribId); // to get date
-                ViewBag.groubLimit = subscrib.Limit;
+                ViewBag.limit = subscrib.Limit;
                 var sims = db.GroupSimCards.Where(s=>s.GroupId.Equals(GroupId)); // get simscard
 
                 foreach (var item in sims)

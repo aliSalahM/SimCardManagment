@@ -21,6 +21,7 @@ namespace SimCardManagement.Data
 		public DbSet<CDR> CDR { get; set; }
 		public DbSet<CDR_Date> CDR_Date { get; set; }
 		public DbSet<GroupSubscrip> GroupSubscrip { get; set; }
+		public DbSet<Device> Device { get; set; }
 
 
 	}

@@ -182,3 +182,8 @@ I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\net
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\Create.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\Index.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\GetSubscripDetails.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Dashboard\Index.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Create.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Index.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Edit.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Details.cshtml.g.cs

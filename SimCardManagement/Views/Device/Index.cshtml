@@ -1,0 +1,280 @@
+﻿@model IEnumerable<DeviceModelView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "الأجهزة" , subTitle = "عرض الأجهزة"}' />
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">عرض الأجهزة</h3>
+                </div>
+                <div class="table-responsive py-4">
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                        <thead>
+                            <tr>
+                                <th>الأسم ألرباعي/ألجهة ألمستفيدة</th>
+                                <th>ألبريد الألكتروني</th>
+                                <th>الهاتف الأول</th>
+                                <th>إسم ألجهاز</th>
+                                <th>ألشريحة</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="vertical-align:middle">@item.Name</td>
+                                    <td style="vertical-align:middle">@item.Email</td>
+                                    <td style="vertical-align:middle">@item.Phone1</td>
+                                    <td style="vertical-align:middle">@item.DeviceName</td>
+                                    <td style="vertical-align:middle">@item.SimCard.SimCardNumber</td>
+                                    
+                                    <td style="vertical-align:middle" class="table-actions">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تعديل">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تفاصيل">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a href="#" onclick="DeleteAction('@item.Id','@item.Name')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function DeleteAction(id, title) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'هل أنت متأكد من حذف <br/>  (' + title + ')  ',
+            text: "لن تكون قادراً على الأعادة بعد ألحذف",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم , متأكد',
+            cancelButtonText: 'كلا , رجوع',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                var itemId = id;
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/Device/Delete/',
+                    data: { id: itemId }
+                });
+
+                swalWithBootstrapButtons.fire(
+                    'تم ألحذف!',
+                    'تم ألحذف بنجاح',
+                    'success'
+
+                )
+
+                $(document).ajaxStop(function () {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'تم إلغاء ألعملية',
+                    'لم يتم ألحذف :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NearPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Work)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsageType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMEI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimCardId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SanaweiaNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Clan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NearPoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Work)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsageType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IMEI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SimCardId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarColor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SanaweiaNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vin)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

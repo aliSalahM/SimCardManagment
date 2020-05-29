@@ -1,0 +1,180 @@
+﻿@model DeviceModelView
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<partial name="_HeaderPartial" model='new HeaderModelView {  title = "الأجهزة" , subTitle = "تفاصيل جهاز"}' />
+
+
+
+
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header">
+                    <h3 class="mb-0">تفاصيل جهاز</h3>
+                </div>
+                <dl class="row card-body">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Clan)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Clan)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Birthdate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Birthdate)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.City)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.City)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.NearPoint)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.NearPoint)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Phone1)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Phone1)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Phone2)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Phone2)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Work)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Work)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.IdCardNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IdCardNumber)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.DeviceName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DeviceName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.UsageType)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.UsageType)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.IMEI)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IMEI)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.SimCardId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.SimCard.SimCardNumber)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CarType)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CarType)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CarColor)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CarColor)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CarNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CarNumber)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Model)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Model)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.SanaweiaNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.SanaweiaNumber)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Vin)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Vin)
+                    </dd>
+                </dl>
+                <div class=" card-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary text-white">تعديل</a>
+                        </div>
+                        <div class="col-6 text-left">
+                            <a asp-action="Index" class="btn btn-danger text-white">رجوع</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

@@ -3,7 +3,7 @@
     ViewData["Title"] = "GetSubscripDetails";
     int count = 0;
     string id = "myId" + count.ToString();
-    double tot =0.0;
+    double tot = 0.0;
 }
 
 
@@ -83,21 +83,25 @@
                             }
                         </tbody>
                         <tfoot>
-                               <tr>
-                                   <th></th>
-                                   <th></th>
-                                   <th>
-                                      
-                                       @if (tot > ViewBag.groupLimit)
-                                       {
-                                           <span class="text-red bg-white p-1">@tot</span>
-                                       }
-                                       else
-                                       {
-                                           <span class="text-green bg-white p-1">@tot</span>
-                                       }
-                                   </th>
-                               </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+
+
+                                @if (tot > ViewBag.limit)
+                                {
+                                    <th style="background-color:#ff6666">
+                                        <span  class="p-1">@tot</span>
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color:#1aff66">
+                                        <span class="p-1">@tot</span>
+                                    </th>
+                                }
+
+                            </tr>
                         </tfoot>
 
                     </table>
@@ -122,4 +126,3 @@
 
 
 
- 
