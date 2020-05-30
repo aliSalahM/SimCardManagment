@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimCardManagement.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace SimCardManagement
 {
@@ -38,6 +39,12 @@ namespace SimCardManagement
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 			services.AddRazorPages();
+
+			services.AddPaging(options => {
+				options.ViewName = "PagerStyle";
+				options.HtmlIndicatorDown = " <span>&darr;</span>";
+				options.HtmlIndicatorUp = " <span>&uarr;</span>";
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,6 +7,8 @@ using SimCardManagement.Data;
 using SimCardManagement.Models;
 using SimCardManagement.ModelView;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Routing;
 
 namespace SimCardManagement.Controllers.Admin
 {
@@ -65,25 +67,53 @@ namespace SimCardManagement.Controllers.Admin
             return View();
         }
         [HttpGet]
-        public IActionResult AddSimCardToGroup(Guid id)
+        public IActionResult AddSimCardToGroup(Guid id, string filter, int page = 1)
         {
             List<GroupSimCardsModelView> list = new List<GroupSimCardsModelView>();
-            foreach (var item in db.SimCard)
-            {      
-                if (!db.GroupSimCards.Any(s=>s.SimCardId.Equals(item.Id)&&s.GroupId.Equals(id)))
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                list.Clear();
+                foreach (var item in db.SimCard.Where(s=>s.SimCardNumber.Contains(filter)))
                 {
-                    GroupSimCardsModelView mv = new GroupSimCardsModelView();
-                    mv.SimCardId = item.Id;
-                    mv.SimCard = item;
-                    mv.GroupId = id;
-                    mv.Selected = false;
-                    list.Add(mv);
-                }              
+                    if (!db.GroupSimCards.Include(s => s.SimCard).Any(s => s.SimCardId.Equals(item.Id) && s.GroupId.Equals(id)))
+                    {
+                        GroupSimCardsModelView mv = new GroupSimCardsModelView();
+                        mv.SimCardId = item.Id;
+                        mv.SimCard = item;
+                        mv.GroupId = id;
+                        mv.Selected = false;
+                        list.Add(mv);
+                    }
+                }
             }
-            return View(list);
+            else
+            {
+                foreach (var item in db.SimCard)
+                {
+                    if (!db.GroupSimCards.Any(s => s.SimCardId.Equals(item.Id) && s.GroupId.Equals(id)))
+                    {
+                        GroupSimCardsModelView mv = new GroupSimCardsModelView();
+                        mv.SimCardId = item.Id;
+                        mv.SimCard = item;
+                        mv.GroupId = id;
+                        mv.Selected = false;
+                        list.Add(mv);
+                    }
+                }
+            }
+
+
+            var model = PagingList.Create(list, 10, page);
+            model.Action = "AddSimCardToGroup";
+            model.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+            };
+
+            return View(model);
         }
         [HttpPost]
-        public IActionResult AddSimCardToGroup(List<GroupSimCardsModelView> mv,Guid id)
+        public IActionResult AddSimCardToGroup(List<GroupSimCardsModelView> mv,Guid id,int page = 1)
         {
             foreach (var item in mv.Where(s=>s.Selected))
             {
@@ -110,27 +140,7 @@ namespace SimCardManagement.Controllers.Admin
                 }
                
             }
-            List<GroupSimCardsModelView> list = new List<GroupSimCardsModelView>();
-            foreach (var item in db.SimCard)
-            {
-                GroupSimCardsModelView mvv = new GroupSimCardsModelView();
-                mvv.SimCardId = item.Id;
-                mvv.SimCard = item;
-                mvv.GroupId = id;
-
-                if (db.GroupSimCards.Any(s => s.SimCardId.Equals(item.Id) && s.GroupId.Equals(id)))
-                {
-                    mvv.Selected = true;
-                }
-                else
-                {
-                    mvv.Selected = false;
-                }
-
-                list.Add(mvv);
-
-            }
-            return View(list);
+            return RedirectToAction(nameof(AddSimCardToGroup));
         }
         [HttpGet]
         public IActionResult GetSimsForGroup(Guid id)
@@ -151,6 +161,7 @@ namespace SimCardManagement.Controllers.Admin
                 db.SaveChanges();
             }
         }
+
 
         [AcceptVerbs("Get","Post")]
         public JsonResult IsNameInUse(string Name,Guid Id)

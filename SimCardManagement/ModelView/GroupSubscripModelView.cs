@@ -23,6 +23,8 @@ namespace SimCardManagement.ModelView
 		public int Limit { get; set; }
 		[Display(Name = "ألحالة")]
 		public string Status { get; set; }
+		[Display(Name = "ألمستخدم")]
+		public Guid UserID { get; set; }
 
 		public static explicit operator GroupSubscripModelView(GroupSubscrip model)
 		{

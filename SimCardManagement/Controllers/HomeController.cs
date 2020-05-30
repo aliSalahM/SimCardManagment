@@ -5,27 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ReflectionIT.Mvc.Paging;
+using SimCardManagement.Data;
 using SimCardManagement.Models;
 
 namespace SimCardManagement.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
+		private readonly ApplicationDbContext db;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ApplicationDbContext db)
 		{
-			_logger = logger;
+			this.db = db;
 		}
-
 		public IActionResult Index()
 		{
 			return View();
 		}
 
-		public IActionResult Privacy()
+		public IActionResult Privacy(int page = 1)
 		{
-			return View();
+			var query = db.SimCard;
+			var model = PagingList.Create(query, 10, page);
+			model.Action = "Privacy";
+			return View(model);
 		}
 
 		

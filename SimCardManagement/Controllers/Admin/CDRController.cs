@@ -109,12 +109,15 @@ namespace SimCardManagement.Controllers.Admin
 
 								try
 								{
-									date.Date = header.GetCell(j).DateCellValue.ToShortDateString();
+									string[] sdate = header.GetCell(j).DateCellValue.ToShortDateString().Split("/");
+									date.Date = sdate[1] + "/" + sdate[0] + "/" + sdate[2];
+									//date.Date = header.GetCell(j).DateCellValue.ToShortDateString();
 								}
 								catch (Exception)
 								{
 
-									date.Date = header.GetCell(j).ToString();
+									string[] sdate = header.GetCell(j).ToString().Split("/");
+									date.Date = sdate[1] + "/" + sdate[0] + "/" + sdate[2];
 								}
 
 								date.Ammount = Convert.ToDouble(row.GetCell(j).ToString());
@@ -138,12 +141,15 @@ namespace SimCardManagement.Controllers.Admin
 
 									try
 									{
-										date.Date = header.GetCell(j).DateCellValue.ToShortDateString();
+										string[] sdate = header.GetCell(j).DateCellValue.ToShortDateString().Split("/");
+										date.Date = sdate[1] + "/" + sdate[0] + "/" + sdate[2];
+										//date.Date = header.GetCell(j).DateCellValue.ToShortDateString();
 									}
 									catch (Exception)
 									{
 
-										date.Date = header.GetCell(j).ToString();
+										string[] sdate = header.GetCell(j).ToString().Split("/");
+										date.Date = sdate[1] + "/" + sdate[0] + "/" + sdate[2];
 									}
 
 									date.Ammount = Convert.ToDouble(row.GetCell(j).ToString());

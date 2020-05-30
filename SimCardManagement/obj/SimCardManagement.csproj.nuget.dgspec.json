@@ -70,6 +70,10 @@
             "NPOI": {
               "target": "Package",
               "version": "[2.5.1, )"
+            },
+            "ReflectionIT.Mvc.Paging": {
+              "target": "Package",
+              "version": "[4.0.0, )"
             }
           },
           "imports": [

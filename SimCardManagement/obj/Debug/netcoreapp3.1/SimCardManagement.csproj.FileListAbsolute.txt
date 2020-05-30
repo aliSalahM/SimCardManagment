@@ -175,10 +175,7 @@ I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\net
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\Microsoft.Win32.SystemEvents.dll
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Drawing.Common.dll
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Drawing.Common.dll
-I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.MvcApplicationPartsAssemblyInfo.cs
-I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.MvcApplicationPartsAssemblyInfo.cache
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\CDR\AddCDRs.cshtml.g.cs
-I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.csprojAssemblyReference.cache
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\Create.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\Index.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\GetSubscripDetails.cshtml.g.cs
@@ -187,3 +184,13 @@ I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\net
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Index.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Edit.cshtml.g.cs
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Device\Details.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\AddSubscrip.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\ReflectionIT.Mvc.Paging.Views.dll
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\bin\Debug\netcoreapp3.1\ReflectionIT.Mvc.Paging.dll
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.MvcApplicationPartsAssemblyInfo.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.MvcApplicationPartsAssemblyInfo.cache
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.csprojAssemblyReference.cache
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Pager\PagerStyle.cshtml.g.cs

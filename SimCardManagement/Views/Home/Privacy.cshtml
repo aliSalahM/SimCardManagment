@@ -1,6 +1,143 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model PagingList<SimCard>
+@using ReflectionIT.Mvc.Paging;
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<nav aria-label="Employee Paging">
+    <ul class="pagination">
+        <li class="page-item">
+            @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+        </li>
+    </ul>
+</nav>
+ 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimCardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IMEI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimIP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Server)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerIp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerOS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevaiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceModal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeviceIMEI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ACCT_CODE)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SimCardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IMEI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SimIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SimType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Server)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerIp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerLink)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerOS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DevaiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceModal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeviceIMEI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ACCT_CODE)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<nav>
+    <vc:pager paging-list="@Model" />
+</nav>

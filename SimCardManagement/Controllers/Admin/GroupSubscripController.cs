@@ -73,7 +73,7 @@ namespace SimCardManagement.Controllers.Admin
                     {
                         foreach (var item3 in db.CDR_Date.Include(s=>s.CDR).Where(s => s.CDR_ID.Equals(item2.Id)))
                         {
-                            if (Convert.ToDateTime(item3.Date) >= Convert.ToDateTime(subscrib.FromDate.ToString("dd/MM/yyyy")) && Convert.ToDateTime(item3.Date) <= Convert.ToDateTime(subscrib.ToDate.ToString("dd/MM/yyyy")))
+                            if (Convert.ToDateTime(item3.Date) >= Convert.ToDateTime(subscrib.FromDate.ToShortDateString()) && Convert.ToDateTime(item3.Date) <= Convert.ToDateTime(subscrib.ToDate.ToShortDateString()))
                             {
                                 var a = list.Where(s => s.SimCardNumber.Equals(item3.CDR.MSISDN)).Count();
                                 if (a == 0)
@@ -101,5 +101,19 @@ namespace SimCardManagement.Controllers.Admin
             }
             return View(list);
         }
+        [HttpGet]
+        public IActionResult AddSubscrip()
+        {
+            ViewBag.users = db.User;
+            return View();
+        }
+
+
+
+        public IActionResult getGroupForUser(string userId)
+        {
+            return Ok(db.Group.Where(s => s.BelongToId.Equals(userId)));
+        }
+
     }
 }
