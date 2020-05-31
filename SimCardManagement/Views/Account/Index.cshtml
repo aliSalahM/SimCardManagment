@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ApplicationUser>
+﻿@model PagingList<ApplicationUser>
 @{
     ViewData["Title"] = "Index";
 }
@@ -15,8 +15,18 @@
                 <div class="card-header">
                     <h3 class="mb-0">عرض ألمستخدمين</h3>
                 </div>
-                <div class="table-responsive py-4">
-                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                <div class="table-responsive py-4" style="overflow-y: hidden;">
+                    <form method="get" class="form-inline ">
+                        <div class="dataTables_filter">
+                            <span style="display:flex">بحث :</span>
+                            <input name="filter" type="search" value="@Model.RouteValue["Filter"]" class="form-control form-control-sm" placeholder="رقم ألشريحة..." aria-controls="datatable-buttons">
+                            <button type="submit" class=" btn-danger form-control-sm ">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>  <i class="fas fa-search text-white"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <br />
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white">
                         <thead>
                             <tr>
                                 <th>إسم ألمستخدم</th>
@@ -27,36 +37,39 @@
                             </tr>
                         </thead>
 
-                        <tbody> 
+                        <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td style="vertical-align:middle">@item.Name</td>
-                                <td style="vertical-align:middle">@item.Email</td>
-                                <td style="vertical-align:middle">@item.UserName</td>
-                                <td>
-                                    @if (item.Photo != null)
-                                    {
-                                        <img src="~/UserImages/@item.Photo" class="avatar rounded-circle mr-3">
-                                    }
-                                    else
-                                    {
-                                        <img src="~/UserImages/unknownUser.jpg" class="avatar rounded-circle mr-3">
-                                    }
+                                <tr>
+                                    <td style="vertical-align:middle">@item.Name</td>
+                                    <td style="vertical-align:middle">@item.Email</td>
+                                    <td style="vertical-align:middle">@item.UserName</td>
+                                    <td>
+                                        @if (item.Photo != null)
+                                        {
+                                            <img src="~/UserImages/@item.Photo" class="avatar rounded-circle mr-3">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/UserImages/unknownUser.jpg" class="avatar rounded-circle mr-3">
+                                        }
 
-                                </td>
-                                <td style="vertical-align:middle" class="table-actions">
-                                    <a asp-action="EditPassword" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تغير ألرقم ألسري">
-                                        <i class="fas fa-key"></i>
-                                    </a>
-                                    <a href="#" onclick="DeleteAction('@item.Id','@item.Name')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td style="vertical-align: middle" class="table-actions">
+                                        <a asp-action="EditPassword" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تغير ألرقم ألسري">
+                                            <i class="fas fa-key"></i>
+                                        </a>
+                                        <a href="#" onclick="DeleteAction('@item.Id','@item.Name')" class="table-action table-action-delete" data-toggle="tooltip" data-original-title="مسح">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
+                    <nav aria-label="SimCard Paging">
+                        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+                    </nav>
                 </div>
             </div>
         </div>

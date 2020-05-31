@@ -16,7 +16,6 @@ namespace SimCardManagement.ModelView
 		[ForeignKey("SimCardId")]
 		public Guid SimCardId { get; set; }
 		public SimCard SimCard { get; set; }
-		public bool Selected { get; set; }
 
 
 		public static explicit operator GroupSimCardsModelView(GroupSimCards model)

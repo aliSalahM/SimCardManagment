@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GroupModelView>
+﻿@model PagingList<GroupModelView>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,7 +18,18 @@
                     <h3 class="mb-0">عرض ألمجموعات</h3>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                    <form method="get" class="form-inline">
+                        <div class="dataTables_filter">
+                            <span style="display:flex">بحث :</span>
+                            <input name="filter" type="search" value="@Model.RouteValue["Filter"]" class="form-control form-control-sm" placeholder="رقم ألشريحة..." aria-controls="datatable-buttons">
+                            <button type="submit" class=" btn-danger form-control-sm ">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>  <i class="fas fa-search text-white"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <br />
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white">
                         <thead>
                             <tr>
                                 <th>إسم ألمجموعة</th>
@@ -33,7 +44,7 @@
                                 <tr>
                                     <td style="vertical-align:middle">@item.Name</td>
                                     <td style="vertical-align:middle">@item.BelongTo.Name</td>
-                                    
+
                                     <td style="vertical-align:middle" class="table-actions">
                                         <a asp-action="Edit" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تعديل">
                                             <i class="fas fa-edit"></i>
@@ -47,12 +58,12 @@
                                         <a asp-action="GetSimsForGroup" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="عرض ألشرائح">
                                             <i class="fas fa-sim-card"></i>
                                         </a>
-                                        <a asp-action="Details" asp-controller="ReportCDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
-                                            <i class="fas fa-info-circle"></i>
-                                        </a>
-                                        <a asp-action="Details" asp-controller="CDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
-                                            <i class="fas fa-file-invoice"></i>
-                                        </a>
+                                        @*<a asp-action="Details" asp-controller="ReportCDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Details" asp-controller="CDR" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="CDR">
+                                <i class="fas fa-file-invoice"></i>
+                            </a>*@
                                         <a asp-action="Index" asp-controller="GroupSubscrip" asp-route-GroupId="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="الأشتراكات">
                                             <i class="fas fa-dollar-sign"></i>
                                         </a>
@@ -61,6 +72,9 @@
                             }
                         </tbody>
                     </table>
+                    <nav aria-label="SimCard Paging">
+                        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+                    </nav>
                 </div>
             </div>
         </div>
@@ -70,3 +84,59 @@
 
 
 
+<script>
+    function DeleteAction(id, title) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-success'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'هل أنت متأكد من حذف <br/>  (' + title + ')  ',
+            text: "لن تكون قادراً على الأعادة بعد ألحذف",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم , متأكد',
+            cancelButtonText: 'كلا , رجوع',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                var itemId = id;
+
+                $.ajax({
+                    type: 'Post',
+                    url: '/Group/Delete/',
+                    data: { id: itemId }
+                });
+
+                swalWithBootstrapButtons.fire(
+                    'تم ألحذف!',
+                    'تم ألحذف بنجاح',
+                    'success'
+
+                )
+
+                $(document).ajaxStop(function () {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                });
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'تم إلغاء ألعملية',
+                    'لم يتم ألحذف :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>

@@ -7,6 +7,8 @@ using SimCardManagement.Data;
 using SimCardManagement.Models;
 using SimCardManagement.ModelView;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Routing;
 
 namespace SimCardManagement.Controllers.Admin
 {
@@ -17,11 +19,25 @@ namespace SimCardManagement.Controllers.Admin
         {
             this.db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string filter, int page = 1)
         {
             List<DeviceModelView> list = new List<DeviceModelView>();
-            db.Device.Include(s=>s.SimCard).ToList().ForEach(x => { list.Add((DeviceModelView)x); });
-            return View(list);
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                list.Clear();
+                db.Device.Where(s=>s.DeviceName.Contains(filter)).Include(s => s.SimCard).ToList().ForEach(x => { list.Add((DeviceModelView)x); });
+
+            }
+            else
+            {
+                db.Device.Include(s => s.SimCard).ToList().ForEach(x => { list.Add((DeviceModelView)x); });
+            }
+            var model = PagingList.Create(list, 10, page);
+            model.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+            };
+            return View(model);
         }
         [HttpGet]
         public IActionResult Create()

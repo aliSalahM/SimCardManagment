@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using ReflectionIT.Mvc.Paging;
 using SimCardManagement.Models;
 using SimCardManagement.ModelView;
 
@@ -25,9 +27,26 @@ namespace SimCardManagement.Controllers.Admin
             _roleManager = roleManager;
             _hostingEnvironment = hostingEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Index(string filter,int page = 1)
         {
-            return View(_userManager.Users);
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                var query = _userManager.Users.Where(s=>s.Name.Contains(filter));
+                var model = PagingList.Create(query, 10, page);
+                model.RouteValue = new RouteValueDictionary {
+                    { "filter", filter}
+                };
+                return View(model);
+            }
+            else
+            {
+                var query = _userManager.Users;
+                var model = PagingList.Create(query, 10, page);
+                model.RouteValue = new RouteValueDictionary {
+                  { "filter", filter}
+                };
+                return View(model);
+            }
         }
         [HttpGet]
         public IActionResult Create()

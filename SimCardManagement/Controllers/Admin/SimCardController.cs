@@ -31,12 +31,14 @@ namespace SimCardManagement.Controllers.Admin
 		public IActionResult Index(string filter, int page = 1)
 		{
 			List<SimCardModelView> list = new List<SimCardModelView>();
-			db.SimCard.ToList().ForEach(x => { list.Add((SimCardModelView)x); });
-
 			if (!string.IsNullOrWhiteSpace(filter))
 			{
 				list.Clear();
 				db.SimCard.Where(s => s.SimCardNumber.Contains(filter)).ToList().ForEach(x => { list.Add((SimCardModelView)x); });
+			}
+			else
+			{
+				db.SimCard.ToList().ForEach(x => { list.Add((SimCardModelView)x); });
 			}
 			var model = PagingList.Create(list, 10, page);
 			model.RouteValue = new RouteValueDictionary {

@@ -19,11 +19,22 @@ namespace SimCardManagement.Controllers.Admin
         {
             this.db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string filter, int page = 1)
         {
             List<GroupModelView> list = new List<GroupModelView>();
-            db.Group.Include(s=>s.BelongTo).ToList().ForEach(x => { list.Add((GroupModelView)x); });
-            return View(list);
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                db.Group.Where(s=>s.Name.Contains(filter)).Include(s => s.BelongTo).ToList().ForEach(x => { list.Add((GroupModelView)x); });
+            }
+            else
+            {
+                db.Group.Include(s => s.BelongTo).ToList().ForEach(x => { list.Add((GroupModelView)x); });
+            }
+            var model = PagingList.Create(list, 10, page);
+            model.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+            };
+            return View(model);
         }
         [HttpGet]
         public IActionResult Create()
@@ -82,7 +93,6 @@ namespace SimCardManagement.Controllers.Admin
                         mv.SimCardId = item.Id;
                         mv.SimCard = item;
                         mv.GroupId = id;
-                        mv.Selected = false;
                         list.Add(mv);
                     }
                 }
@@ -97,13 +107,11 @@ namespace SimCardManagement.Controllers.Admin
                         mv.SimCardId = item.Id;
                         mv.SimCard = item;
                         mv.GroupId = id;
-                        mv.Selected = false;
                         list.Add(mv);
                     }
                 }
             }
-
-
+            TempData["PageIndex"] = page; 
             var model = PagingList.Create(list, 10, page);
             model.Action = "AddSimCardToGroup";
             model.RouteValue = new RouteValueDictionary {
@@ -112,35 +120,20 @@ namespace SimCardManagement.Controllers.Admin
 
             return View(model);
         }
-        [HttpPost]
-        public IActionResult AddSimCardToGroup(List<GroupSimCardsModelView> mv,Guid id,int page = 1)
+        public IActionResult ConfirmAddSimCardToGroup(Guid simCardId, Guid groupId)
         {
-            foreach (var item in mv.Where(s=>s.Selected))
+            if (simCardId != Guid.Empty && groupId != Guid.Empty)
             {
-                var x = db.GroupSimCards.Where(s => s.SimCardId == item.SimCardId && s.GroupId.Equals(item.GroupId));
-                if (x.Count() == 0)
-                {
-                    GroupSimCards groupSimCards = new GroupSimCards();
-                    groupSimCards.SimCardId = item.SimCardId;
-                    groupSimCards.GroupId = item.GroupId;
-                    db.GroupSimCards.Add(groupSimCards);
-                    db.SaveChanges();
-                    ViewBag.alertMsg = "تمت ألعملية بنجاح";
-                }
-                
+                GroupSimCards sim = new GroupSimCards();
+                sim.SimCardId = simCardId;
+                sim.SimCard = db.SimCard.Find(simCardId);
+                sim.GroupId = groupId;
+                sim.Group = db.Group.Find(groupId);
+                db.GroupSimCards.Add(sim);
+                db.SaveChanges();
             }
-            foreach (var item in mv.Where(s => !s.Selected))
-            {
-                var x = db.GroupSimCards.Where(s => s.SimCardId == item.SimCardId && s.GroupId.Equals(item.GroupId));
-                if (x.Count() != 0)
-                {
-                    db.GroupSimCards.Remove(db.GroupSimCards.SingleOrDefault(s => s.GroupId.Equals(item.GroupId) && s.SimCardId.Equals(item.SimCardId)));
-                    db.SaveChanges();
-                    ViewBag.alertMsg = "تمت ألعملية بنجاح";
-                }
-               
-            }
-            return RedirectToAction(nameof(AddSimCardToGroup));
+            int page =Convert.ToInt32(TempData["PageIndex"].ToString());
+            return RedirectToAction(nameof(AddSimCardToGroup),new { id = groupId, page = page});
         }
         [HttpGet]
         public IActionResult GetSimsForGroup(Guid id)
@@ -153,6 +146,14 @@ namespace SimCardManagement.Controllers.Admin
             }
             return View();
         }
+        public void Delete(Guid id)
+        {
+            if (id != Guid.Empty)
+            {
+                db.Group.Remove(db.Group.Find(id));
+                db.SaveChanges();
+            }
+        }
         public void DeleteSimFromGroup(Guid id)
         {
             if (id != Guid.Empty)
@@ -161,8 +162,6 @@ namespace SimCardManagement.Controllers.Admin
                 db.SaveChanges();
             }
         }
-
-
         [AcceptVerbs("Get","Post")]
         public JsonResult IsNameInUse(string Name,Guid Id)
         {

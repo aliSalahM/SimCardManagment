@@ -194,3 +194,4 @@ I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\net
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.MvcApplicationPartsAssemblyInfo.cache
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\SimCardManagement.csprojAssemblyReference.cache
 I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Pager\PagerStyle.cshtml.g.cs
+I:\Visual Studio 2019 Projects\SimCardManagement\SimCardManagement\obj\Debug\netcoreapp3.1\Razor\Views\GroupSubscrip\DisplaySubscrip.cshtml.g.cs

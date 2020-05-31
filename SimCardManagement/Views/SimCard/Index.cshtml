@@ -21,7 +21,7 @@
                 </div>
                 <div class="table-responsive py-4">
 
-                    <form method="get" class="form-inline row">
+                    <form method="get" class="form-inline">
                         <div class="dataTables_filter">
                             <span style="display:flex">بحث :</span>
                             <input name="filter" type="search" value="@Model.RouteValue["Filter"]" class="form-control form-control-sm" placeholder="رقم ألشريحة..." aria-controls="datatable-buttons">
@@ -69,11 +69,6 @@
                     <nav aria-label="SimCard Paging">
                         @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
                     </nav>
-
-
-
-
-
                 </div>
             </div>
         </div>

@@ -107,12 +107,49 @@ namespace SimCardManagement.Controllers.Admin
             ViewBag.users = db.User;
             return View();
         }
-
-
-
+        [HttpPost]
+        public IActionResult AddSubscrip(GroupSubscripModelView mv)
+        {
+            if (ModelState.IsValid)
+            {
+                db.GroupSubscrip.Add((GroupSubscrip)mv);
+                db.SaveChanges();
+                ModelState.Clear();
+                ViewBag.alertMsg = "تمت ألعملية بنجاح";
+            }
+            ViewBag.users = db.User;
+            return View();
+        }
         public IActionResult getGroupForUser(string userId)
         {
             return Ok(db.Group.Where(s => s.BelongToId.Equals(userId)));
+        }
+        public IActionResult DisplaySubscrip()
+        {
+            ViewBag.users = db.User;
+            return View();
+        }
+        public IActionResult GetSubscripForGroup(Guid groupId)
+        {
+            ViewBag.groupId = groupId;
+            List<GroupSubscripModelView> list = new List<GroupSubscripModelView>();
+
+            var currentDate = DateTime.Now;
+            foreach (var item in db.GroupSubscrip.Where(s => s.GroupId.Equals(groupId)))
+            {
+                if (item.FromDate <= currentDate && item.ToDate >= currentDate)
+                {
+                    item.Status = "فعال";
+                    list.Add((GroupSubscripModelView)item);
+                }
+                else
+                {
+                    item.Status = "غير فعال";
+                    list.Add((GroupSubscripModelView)item);
+                }
+            }
+            db.SaveChanges();
+            return Ok(list);
         }
 
     }

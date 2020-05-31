@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DeviceModelView>
+﻿@model PagingList<DeviceModelView>
 
 @{
     ViewData["Title"] = "Index";
@@ -18,7 +18,17 @@
                     <h3 class="mb-0">عرض الأجهزة</h3>
                 </div>
                 <div class="table-responsive py-4">
-                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" id="datatable-buttons">
+                    <form method="get" class="form-inline">
+                        <div class="dataTables_filter">
+                            <span style="display:flex">بحث :</span>
+                            <input name="filter" type="search" value="@Model.RouteValue["Filter"]" class="form-control form-control-sm" placeholder="رقم ألشريحة..." aria-controls="datatable-buttons">
+                            <button type="submit" class=" btn-danger form-control-sm ">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>  <i class="fas fa-search text-white"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <br />
+                    <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white">
                         <thead>
                             <tr>
                                 <th>الأسم ألرباعي/ألجهة ألمستفيدة</th>
@@ -39,7 +49,7 @@
                                     <td style="vertical-align:middle">@item.Phone1</td>
                                     <td style="vertical-align:middle">@item.DeviceName</td>
                                     <td style="vertical-align:middle">@item.SimCard.SimCardNumber</td>
-                                    
+
                                     <td style="vertical-align:middle" class="table-actions">
                                         <a asp-action="Edit" asp-route-id="@item.Id" class="table-action" data-toggle="tooltip" data-original-title="تعديل">
                                             <i class="fas fa-edit"></i>
@@ -55,6 +65,9 @@
                             }
                         </tbody>
                     </table>
+                    <nav aria-label="SimCard Paging">
+                        @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+                    </nav>
                 </div>
             </div>
         </div>

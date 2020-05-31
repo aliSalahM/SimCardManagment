@@ -17,7 +17,7 @@
                     <h3 class="mb-0">إضافة شريحة</h3>
                 </div>
 
-                <form method="get" class="form-inline row">
+                <form method="get" class="form-inline">
                     <div class="dataTables_filter">
                         <span style="display:flex">بحث :</span>
                         <input name="filter" type="search" value="@Model.RouteValue["Filter"]" class="form-control form-control-sm" placeholder="رقم ألشريحة..." aria-controls="datatable-buttons">
@@ -28,7 +28,7 @@
                 </form>
  
 
-                <form asp-action="AddSimCardToGroup">
+                <form>
                     <div class="table-responsive py-4">
                         <table class="table table-flush text-center" style="background-color:cornflowerblue;color:white" >
                             <thead>
@@ -43,18 +43,22 @@
 
                             <tbody>
 
-                                @for (int i = 0; i < Model.Count; i++)
-                                {
-                                    <tr>
-                                        <input type="hidden" asp-for="@Model[i].GroupId" />
-                                        <input type="hidden" asp-for="@Model[i].SimCardId" />
-                                        <td>@Model[i].SimCard.Code</td>
-                                        <td>@Model[i].SimCard.SimCardNumber</td>
-                                        <td>@Model[i].SimCard.ACCT_CODE</td>
-                                        <td>@Model[i].SimCard.SimType</td>
-                                        <td><input asp-for="@Model[i].Selected" /></td>
-                                    </tr>
-                                }
+                                @foreach (var item in Model)
+	                            {
+		                           <tr>
+                                       <td>@item.SimCard.Code</td>
+                                       <td>@item.SimCard.SimCardNumber</td>
+                                       <td>@item.SimCard.ACCT_CODE</td>
+                                       <td>@item.SimCard.SimType</td>
+                                       <td>
+                                           <a asp-action="ConfirmAddSimCardToGroup" asp-route-groupId="@item.GroupId" asp-route-simCardId="@item.SimCardId" class="table-action" data-toggle="tooltip" data-original-title="إضافة">
+                                               <i class="fas fa-plus-square"></i>
+                                           </a>
+                                       </td>
+                                   </tr>
+	                            }
+
+                                
 
 
                             </tbody>
@@ -63,9 +67,7 @@
                             @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
                         </nav>
                     </div>
-                    <div class="row pl-5 pb-4" dir="ltr">
-                        <input type="submit" value="إضافة" class="btn btn-primary" />
-                    </div>
+                  
 
                 </form>
             </div>
@@ -116,15 +118,4 @@
 </form>*@
 
 
-@if (ViewBag.alertMsg != null)
-{
-    <script>
-        Swal.fire({
-          icon: 'success',
-          title: '@ViewBag.alertMsg',
-          footer: '<a href>© جميع الحقوق محفوظة لشركة مدينتي</a>'
-        })
-
-    </script>
-}
 
